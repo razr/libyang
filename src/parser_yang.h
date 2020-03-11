@@ -49,7 +49,7 @@ struct type_node {
         struct lys_node_rpc_action *ptr_rpc;
         struct lys_node_choice *ptr_choice;
     };
-    uint flag;
+    unsigned int flag;
 };
 
 struct yang_parameter {
@@ -170,7 +170,7 @@ void yang_free_ext_data(struct yang_ext_substmt *substmt);
 void *yang_read_ext(struct lys_module *module, void *actual, char *ext_name, char *ext_arg,
                     enum yytokentype actual_type, enum yytokentype backup_type, int is_ext_instance);
 
-int yang_check_ext_instance(struct lys_module *module, struct lys_ext_instance ***ext, uint size,
+int yang_check_ext_instance(struct lys_module *module, struct lys_ext_instance ***ext, unsigned int size,
                             void *parent, struct unres_schema *unres);
 
 int yang_read_extcomplex_str(struct lys_module *module, struct lys_ext_instance_complex *ext, const char *arg_name,

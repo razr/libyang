@@ -20,7 +20,7 @@
 #include "xpath.h"
 
 static void yang_free_import(struct ly_ctx *ctx, struct lys_import *imp, uint8_t start, uint8_t size);
-static int yang_check_must(struct lys_module *module, struct lys_restr *must, uint size, struct unres_schema *unres);
+static int yang_check_must(struct lys_module *module, struct lys_restr *must, unsigned int size, struct unres_schema *unres);
 static void yang_free_include(struct ly_ctx *ctx, struct lys_include *inc, uint8_t start, uint8_t size);
 static int yang_check_sub_module(struct lys_module *module, struct unres_schema *unres, struct lys_node *node);
 static void free_yang_common(struct lys_module *module, struct lys_node *node);
@@ -2028,7 +2028,7 @@ int yang_check_deviate_unique(struct lys_module *module, struct lys_deviate *dev
 {
     struct lys_node_list *list;
     char *str;
-    uint i = 0;
+    unsigned int i = 0;
     struct lys_unique *last_unique = NULL;
 
     if (yang_read_deviate_unique(deviate, dev_target)) {
@@ -3230,9 +3230,9 @@ yang_free_augment(struct ly_ctx *ctx, struct lys_node_augment *aug)
 }
 
 static void
-yang_free_deviate(struct ly_ctx *ctx, struct lys_deviation *dev, uint index)
+yang_free_deviate(struct ly_ctx *ctx, struct lys_deviation *dev, unsigned int index)
 {
-    uint i, j;
+    unsigned int i, j;
 
     for (i = index; i < dev->deviate_size; ++i) {
         lydict_remove(ctx, dev->deviate[i].units);
@@ -3283,7 +3283,7 @@ yang_free_ext_data(struct yang_ext_substmt *substmt)
 static void
 free_yang_common(struct lys_module *module, struct lys_node *node)
 {
-    uint i;
+    unsigned int i;
     yang_tpdf_free(module->ctx, module->tpdf, 0, module->tpdf_size);
     module->tpdf_size = 0;
     yang_free_ident_base(module->ident, 0, module->ident_size);
@@ -3305,11 +3305,11 @@ free_yang_common(struct lys_module *module, struct lys_node *node)
 /* check function*/
 
 int
-yang_check_ext_instance(struct lys_module *module, struct lys_ext_instance ***ext, uint size,
+yang_check_ext_instance(struct lys_module *module, struct lys_ext_instance ***ext, unsigned int size,
                         void *parent, struct unres_schema *unres)
 {
     struct unres_ext *info;
-    uint i;
+    unsigned int i;
 
     for (i = 0; i < size; ++i) {
         info = malloc(sizeof *info);
@@ -3447,7 +3447,7 @@ yang_check_iffeatures(struct lys_module *module, void *ptr, void *parent, enum y
 static int
 yang_check_identityref(struct lys_module *module, struct lys_type *type, struct unres_schema *unres)
 {
-    uint size, i;
+    unsigned int size, i;
     int rc;
     struct lys_ident **ref;
     const char *value;
@@ -3731,9 +3731,9 @@ error:
 }
 
 static int
-yang_check_must(struct lys_module *module, struct lys_restr *must, uint size, struct unres_schema *unres)
+yang_check_must(struct lys_module *module, struct lys_restr *must, unsigned int size, struct unres_schema *unres)
 {
-    uint i;
+    unsigned int i;
 
     for (i = 0; i < size; ++i) {
         if (yang_check_ext_instance(module, &must[i].ext, must[i].ext_size, &must[i], unres)) {
@@ -4154,7 +4154,7 @@ error:
 static int
 yang_check_uses(struct lys_module *module, struct lys_node_uses *uses, int options, struct unres_schema *unres)
 {
-    uint i, size;
+    unsigned int i, size;
 
     size = uses->augment_size;
     uses->augment_size = 0;
@@ -4532,7 +4532,7 @@ static int
 yang_check_deviation(struct lys_module *module, struct unres_schema *unres, struct lys_deviation *dev)
 {
     int rc;
-    uint i;
+    unsigned int i;
     struct lys_node *dev_target = NULL, *parent;
     struct ly_set *dflt_check = ly_set_new(), *set;
     unsigned int u;
@@ -4695,7 +4695,7 @@ error:
 static int
 yang_check_sub_module(struct lys_module *module, struct unres_schema *unres, struct lys_node *node)
 {
-    uint i, erase_identities = 1, erase_nodes = 1, aug_size, dev_size = 0;
+    unsigned int i, erase_identities = 1, erase_nodes = 1, aug_size, dev_size = 0;
 
     aug_size = module->augment_size;
     module->augment_size = 0;
