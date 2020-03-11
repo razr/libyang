@@ -47,6 +47,9 @@ extern int yydebug;
 /* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
+#ifdef ERROR
+#undef ERROR
+#endif
   enum yytokentype
   {
     UNION_KEYWORD = 258,
