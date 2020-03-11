@@ -2498,10 +2498,12 @@ lyp_check_date(struct ly_ctx *ctx, const char *date)
 
     /* check content, e.g. 2018-02-31 */
     memset(&tm, 0, sizeof tm);
+#if !defined(__VXWORKS__)
     r = strptime(date, "%Y-%m-%d", &tm);
     if (!r || r != &date[LY_REV_SIZE - 1]) {
         goto error;
     }
+#endif
     /* set some arbitrary non-0 value in case DST changes, it could move the day otherwise */
     tm.tm_hour = 12;
 
