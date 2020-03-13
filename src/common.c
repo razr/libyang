@@ -21,7 +21,7 @@
 #include <pthread.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/syscall.h>
+#include <syscall.h>
 #include <sys/types.h>
 #include <unistd.h>
 

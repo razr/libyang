@@ -23,7 +23,7 @@
 #include <pthread.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
-#include <sys/syscall.h>
+#include <syscall.h>
 #include <fcntl.h>
 
 #include "common.h"
