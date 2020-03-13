@@ -133,7 +133,7 @@ endif()
 option(ENABLE_STATIC "Build static (.a) library" OFF)
 
 # check the supported platform
-if(NOT UNIX)
+if(NOT UNIX AND NOT VXWORKS)
     message(FATAL_ERROR "Only *nix like systems are supported.")
 endif()
 
@@ -222,8 +222,10 @@ else()
     #only for tests with visible internal symbols
     add_library(yangobj_tests OBJECT ${libsrc})
 
-    #link dl
-    target_link_libraries(yang ${CMAKE_DL_LIBS})
+    if(NOT VXWORKS)
+        #link dl
+        target_link_libraries(yang ${CMAKE_DL_LIBS})
+    endif()
 
     set_target_properties(yangobj PROPERTIES COMPILE_FLAGS "-fvisibility=hidden")
 endif(ENABLE_STATIC)
